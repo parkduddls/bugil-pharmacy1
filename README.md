@@ -1,1 +1,0 @@
-# bugil-pharmacy1
