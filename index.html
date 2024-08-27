@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUGIL pharmacy</title>
+    <title>Bugil pharmacy</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
             background-image: url('https://i.namu.wiki/i/ezgId_enUqbQ7s-dmcmm8XYPsFudQB0FUW6leQPFrcw89kcCpBZsnsBJ7ZBrG7kP3zJJ_CRXtmqpBMgWTGt_BQ.webp');
-            background-size: cover;
+            background-size: 300px 200px;
             background-repeat: no-repeat;
-            background-position: center center;
-            background-size: 30%;
-            background-position: center -250%;
-            
+            background-position: center 85%;
+            background-attachment: fixed; /* 배경 이미지 고정 */
         }
         .container {
             max-width: 600px;
@@ -52,7 +49,7 @@
             <select id="symptoms">
                 <option value="">-- 증상 선택 --</option>
             </select>
-            <button onclick="recommendMedicine()">진단하기</button>
+            <button onclick="recommendMedicine()">확인하기</button>
         </div>
         <div class="result" id="recommendation"></div>
     </div>
@@ -133,23 +130,24 @@
             '인후통' : { medicine: '스트렙실', sideEffects: '속 쓰림, 구역, 구토, 복통' },
             '귀통증' : { medicine: '타이레놀', sideEffects: '복통, 복부불쾌감' },
             '비출혈' : { medicine: '코에 먼저 휴지를 꼽기 그래도 안되면 응급치료', sideEffects: '' },
-            '축농증' : { medicine: '병원 이동', sideEffects: '' }  
-
+            '축농증' : { medicine: '병원 이동', sideEffects: '' }           
         };
+        
 
         function showSymptoms() {
             const system = document.getElementById('system').value;
             const symptomsContainer = document.getElementById('symptoms-container');
             const symptomsSelect = document.getElementById('symptoms');
 
+            // 증상 목록을 업데이트하기 전 선택한 계통이 있는지 확인합니다.
             if (system) {
                 symptomsSelect.innerHTML = '<option value="">-- 증상 선택 --</option>';
                 symptomsData[system].forEach(symptom => {
                     symptomsSelect.innerHTML += `<option value="${symptom}">${symptom}</option>`;
                 });
-                symptomsContainer.style.display = 'block';
+                symptomsContainer.style.display = 'block';  // 증상 선택 영역을 표시합니다.
             } else {
-                symptomsContainer.style.display = 'none';
+                symptomsContainer.style.display = 'none';  // 계통이 선택되지 않았을 때는 증상 선택 영역을 숨깁니다.
             }
         }
 
@@ -157,12 +155,13 @@
             const symptom = document.getElementById('symptoms').value;
             const recommendationDiv = document.getElementById('recommendation');
 
+            // 증상이 선택되었는지 확인합니다
             if (symptom) {
                 const medicine = medicineData[symptom];
                 if (medicine) {
                     recommendationDiv.innerHTML = `
-                        <h2>추천 약</h2>
-                        <p><strong>약물:</strong> ${medicine.medicine}</p>
+                        <h2>추천 의약품</h2>
+                        <p><strong>의약품:</strong> ${medicine.medicine}</p>
                         <p><strong>부작용:</strong> ${medicine.sideEffects}</p>
                     `;
                 } else {
@@ -175,4 +174,3 @@
     </script>
 </body>
 </html>
-
